@@ -26,7 +26,7 @@ client.on('message', ms => {
       }
     }
   } else {
-    if (ms.content === ']new') {
+    if (ms.content === '*new') {
       new Game(ms);
       ms.reply('Doge xin hân hạnh tài trợ chương trình này');
     }
@@ -36,26 +36,26 @@ client.on('message', ms => {
 client.login('NjkxODU3MDE5MzE3MjU2MjEy.XnmyjA.8eBOHC0TvT45M9s1twERT6-NPfc');
 
 function ownerCommands(message, discordUser, game) {
-  if (message.content.startsWith(']add ')) {
+  if (message.content.startsWith('*add ')) {
 
     const mention = message.content.split(' ')[1];
     const username = message.content.split(' ')[2];
     const mentionedUser = getUserFromMention(mention);
     console.log(mentionedUser);
     game.add(mentionedUser, username);
-  } else if (message.content.startsWith('.addrole ')) {
+  } else if (message.content.startsWith('*addrole ')) {
     const roleName = message.content.split(' ')[1];
     if (Roles[roleName]) {
       game.addRole(Roles[roleName]);
     }
-    else message.reply('Role này đéo tồn tại :blobglare~1:')
-  } else if (message.content.startsWith(']start')) {
+    else message.reply('Role này đéo tồn tại ')
+  } else if (message.content.startsWith('*start')) {
     if (game.players.length !== game.roles.length) {
       message.reply('số người chơi hoặc số role đéo bằng nhau :blobglare~1: ' + 'số người chơi:' + game.players.length + ' số role:' + game.roles.length);
     } else {
       game.newGame();
     }
-  } else if (message.content.startsWith(']end')) {
+  } else if (message.content.startsWith('*end')) {
     game.terminate();
   }
 }

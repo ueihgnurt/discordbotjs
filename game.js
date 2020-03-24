@@ -86,8 +86,8 @@ Game.prototype.loop = function() {
 		await this.night();
 
 		this.morning();
-		this.story += `\n*Trời sáng* :Frogreeeeeeeee: `;
-		console.log(`\n*Trời sáng* :Frogreeeeeeeee: `);
+		this.story += `\n*Trời sáng* `;
+		console.log(`\n*Trời sáng* `);
 
 		if (this.checkEnd()) {
 			resolve();
@@ -108,7 +108,7 @@ Game.prototype.loop = function() {
 Game.prototype.checkEnd = function() {
 
 	if (this.getAlivePlayerList().length === 0) {
-		this.story += '\nTất cả mọi người đều chết :worrysadman: ';
+		this.story += '\nTất cả mọi người đều chết';
 		return true;
 	}
 
@@ -125,12 +125,12 @@ Game.prototype.checkEnd = function() {
 
 	if (numberOfWolves === 0) {
 		this.isHumanWin = true;
-		this.story += '\nDân làng thắng :worrySmart: ';
+		this.story += '\nDân làng thắng';
 		return true
 	};
 	if (numberOftargets <= numberOfWolves) {
 		this.isHumanWin = false;
-		this.story += '\nSói thắng :peepoLaughPoint: ';
+		this.story += '\nSói thắng';
 		return true
 	}
 	return false;
@@ -148,7 +148,7 @@ Game.prototype.night = function() {
 		this.lastNightDies = [];
 
 		// All Sleep
-		this.notifyAll('Đêm xuống, tất cả mọi người đi ngủ nào :whattheL:');
+		this.notifyAll('Đêm xuống, tất cả mọi người đi ngủ nào');
 		this.phase = Constants.gameStages.nightBeforeWolves;
 
 		// Turn traitor to werewolf
