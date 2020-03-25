@@ -86,8 +86,8 @@ Game.prototype.loop = function() {
 		await this.night();
 
 		this.morning();
-		this.story += `\n*Trời sáng* `;
-		console.log(`\n*Trời sáng* `);
+		this.story += `\n*Trời sáng*`;
+		console.log(`\n*Trời sáng*`);
 
 		if (this.checkEnd()) {
 			resolve();
@@ -148,7 +148,7 @@ Game.prototype.night = function() {
 		this.lastNightDies = [];
 
 		// All Sleep
-		this.notifyAll('Đêm xuống, tất cả mọi người đi ngủ nào');
+		this.notifyAll('Đêm xuống, tất cả mọi người đi ngủ nào :v');
 		this.phase = Constants.gameStages.nightBeforeWolves;
 
 		// Turn traitor to werewolf
@@ -182,7 +182,7 @@ Game.prototype.seerProcess = function() {
 		if (seerPlayer) {
 			const alivePlayers = this.getAlivePlayerList().filter(p => p !== seerPlayer);
 			const listText = Helper.textFromOptions(alivePlayers, p => p.name);
-			seerPlayer.sendDM(`Chọn 1 người chơi để sói:${listText}`);
+			seerPlayer.sendDM(`Chọn 1 người chơi để soi:${listText}`);
 			seerPlayer.select(alivePlayers)
 				.then(selectedIndex => {
 					seerPlayer.sendDM(`${alivePlayers[selectedIndex].name} là ${alivePlayers[selectedIndex].role.name}`);
@@ -282,7 +282,7 @@ Game.prototype.wolvesProcess = function() {
 			if (mostSelectedIndex === null) {
 				this.wolvesTarget = null;
 				this.story += `\nSói không cắn ai cả`;
-				console.log(`Sói không cắn ai cả :doge:`);
+				console.log(`Sói không cắn ai cả`);
 			} else {
 				this.wolvesTarget = targets[mostSelectedIndex];
 				this.story += `\nSói chọn cắn ${targets[mostSelectedIndex].getNameAndRole()}`;
@@ -345,14 +345,14 @@ Game.prototype.witchProcess = function() {
 
 Game.prototype.dayF = function() {
 	return new Promise(r => {
-		this.notifyAll(`Chúng m có ~~5 giây~~ *30 giây* để thảo luận`);
+		this.notifyAll(`Dân làng có ~~3 phút~~ *30 giây* để thảo luận`);
 		setTimeout(async () => {
 			const targets = this.getAlivePlayerList();
 			const selects = [...targets];
 			selects.push({ name: 'Không treo cổ ai cả' });
 
 			const targetsText = Helper.textFromOptions(selects, t => t.name);
-			this.notifyAll(`Hết giờ thảo luận :dogehaha:, tất cả dân làng lựa chọn 1 người để treo cổ:${targetsText}`);
+			this.notifyAll(`Hết giờ thảo luận, tất cả dân làng lựa chọn 1 người để treo cổ:${targetsText}`);
 			const selectedIndexes = await Promise.all(targets.map(target => {
 				target.select(selects, 60, selects.length - 1).then(selected => {
 					if (selected !== targets.length - 1) {
@@ -370,7 +370,7 @@ Game.prototype.dayF = function() {
 			const mostSelected = Helper.most(selectedIndexes);
 
 			if (mostSelected === null || mostSelected === selects.length - 1) {
-				this.notifyAll(`Không ai bị treo cổ cả, kết thúc ngày `);
+				this.notifyAll(`Không ai bị treo cổ cả, kết thúc ngày`);
 				this.story += `\nKhông ai bị treo cổ`;
 				console.log(`\nKhông ai bị treo cổ`);
 				r();
@@ -478,7 +478,7 @@ Game.prototype.killProcess = function(victim, canProtect = false) {
 Game.prototype.onEnd = function() {
 	// this.notifyAll(`Trò chơi kết thúc!!\nStory:\n${this.story}`);
 	this.channel.send(`Trò chơi kết thúc!!\n${this.story}`);
-	console.log('game end me roi');
+	console.log('game end cmnr roi');
 	this.phase = Constants.gameStages.waiting;
 }
 

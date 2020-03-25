@@ -9,7 +9,6 @@ client.on('message', ms => {
   const dc = ms.author;
   const game = Helper.findGameIfExist(dc);
   if (game) {
-
     const player = game.playerFromDC(dc);
 
     if (player.resolveSelectIfExist(ms.content)) {
@@ -26,50 +25,71 @@ client.on('message', ms => {
       }
     }
   } else {
-    if (ms.content === '*new') {
+    if (ms.content === 'wwnew') {
       new Game(ms);
-      ms.reply('Doge xin hân hạnh tài trợ chương trình này');
+      ms.channel.send('<:doge:692301434187939840> Doge 0.0.2 hân hạnh tài trợ chương trình này');
+    } else if(ms.content.startsWith('Vàng đâu') && ms.content.endsWith('khẩu AK')){
+      ms.channel.send('<:AK47:692359318292660255> ẳng ẳng')
+    }
+    else if(ms.content === 'dối lòng sẽ bị'){
+      ms.channel.send('quạ bắt diều hâu tha')
     }
   }
 });
-
-client.login('NjkxODU3MDE5MzE3MjU2MjEy.XnmyjA.8eBOHC0TvT45M9s1twERT6-NPfc');
-
+client.login('NjkxODU3MDE5MzE3MjU2MjEy.XnsVrg.22_khA-pH-pY0IYklH2Rc29vgCM');
 function ownerCommands(message, discordUser, game) {
-  if (message.content.startsWith('*add ')) {
-
-    const mention = message.content.split(' ')[1];
-    const username = message.content.split(' ')[2];
-    const mentionedUser = getUserFromMention(mention);
-    console.log(mentionedUser);
-    game.add(mentionedUser, username);
-  } else if (message.content.startsWith('*addrole ')) {
+  if (message.content=== 'wwsign') {
+    message.channel.send('Đăng ký bằng cách react <:dogehaha:639540853978693632> vào đây').then((message) =>{ 
+      const filter = (reaction, user) => {
+        return ['dogehaha'].includes(reaction.emoji.name) && user.id === message.author.id;
+      };
+      reactors = []
+      message.awaitReactions(filter,{ max: 1, time: 60000, errors: ['time'] })
+      .then(collected => {
+          reactors.push(collected.first());
+        }).catch((reactors) => {
+          message.channel.send('hết thời gian đăng ký')
+          message.channel.send('danh sách người chơi:')
+          message.reactions.map((reaction) => {
+            reaction.users.map((user )=> {
+              message.channel.send('<@'+user.id+'>' )
+              game.add(user,user.username)
+          }) 
+          })
+        })
+      // const emoji = ':white_check_mark:'
+      
+      
+    })
+    // const mention = message.content.split(' ')[1];
+    // const username = message.content.split(' ')[2];
+    // const mentionedUser = getUserFromMention(mention);
+    // console.log(mentionedUser);
+    // message.channel.send('đã add <@'+mentionedUser.id+'> vào list')
+    // game.add(mentionedUser, username);
+  } else if (message.content.startsWith('wwrole ')) {
     const roleName = message.content.split(' ')[1];
     if (Roles[roleName]) {
       game.addRole(Roles[roleName]);
     }
-    else message.reply('Role này đéo tồn tại ')
-  } else if (message.content.startsWith('*start')) {
+  } else if (message.content.startsWith('wwstart')) {
     if (game.players.length !== game.roles.length) {
-      message.reply('số người chơi hoặc số role đéo bằng nhau :blobglare~1: ' + 'số người chơi:' + game.players.length + ' số role:' + game.roles.length);
+      message.reply('Óc chó phát thẻ không bằng số người chơi số người chơi hiện tại là ' + game.players.length + ' số thẻ là ' + game.roles.length);
     } else {
       game.newGame();
     }
-  } else if (message.content.startsWith('*end')) {
+  } else if (message.content.startsWith('wwend')) {
     game.terminate();
   }
 }
 
 function getUserFromMention(mention) {
 	if (!mention) return;
-
 	if (mention.startsWith('<@') && mention.endsWith('>')) {
 		mention = mention.slice(2, -1);
-
 		if (mention.startsWith('!')) {
 			mention = mention.slice(1);
 		}
-
 		return client.users.get(mention);
 	}
 }

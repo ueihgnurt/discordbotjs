@@ -1,14 +1,14 @@
 {
-  "name": "wwbot",
+  "name": "werewolf",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start" :"node app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.6.3"
+    "discord.js": "^11.6.1"
   }
 }

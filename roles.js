@@ -1,7 +1,7 @@
 module.exports = {
   villager: {
     name: 'Dân làng',
-    inf: 'Bạn không cần làm gì cả',
+    inf: 'Bạn không cần làm gì cả :D',
     getDefaultState: () =>({})
   },
   werewolf: {
@@ -16,7 +16,7 @@ module.exports = {
   },
   witch: {
     name: 'Phù thủy',
-    inf: 'Bạn chỉ có 2 bình thuốc cho cả game 1 bình cứu người và 1 bình giết người.Bạn được quyền giết hoặc cứu đứa nào đấy',
+    inf: 'Lên mạng search cách chơi đi, phùy thủy lằng nhằng vl',
     getDefaultState: () =>({
       didKill: false,
       didSave: false,
@@ -24,7 +24,7 @@ module.exports = {
   },
   guardian: {
     name: 'Bảo vệ',
-    inf: 'chọn một đứa để bảo kê hoặc bảo kê bản thân khỏi sói',
+    inf: 'Tụ google cách chơi',
     getDefaultState: () =>({
       lastTarget: null
     })
@@ -36,5 +36,4 @@ module.exports = {
       target: null
     })
   }
-
 }
