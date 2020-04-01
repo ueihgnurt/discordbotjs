@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const client = new Discord.Client();
 const Helper = require('./helper');
 const Constants = require('./constants');
@@ -28,12 +28,7 @@ client.on('message', ms => {
     if (ms.content === 'wwnew') {
       new Game(ms);
       ms.channel.send('<:doge:692301434187939840> Doge 0.0.2 hân hạnh tài trợ chương trình này');
-    } else if(ms.content.startsWith('Vàng đâu') && ms.content.endsWith('khẩu AK')){
-      ms.channel.send('<:AK47:692359318292660255> ẳng ẳng')
-    }
-    else if(ms.content === 'dối lòng sẽ bị'){
-      ms.channel.send('quạ bắt diều hâu tha')
-    }
+    } 
   }
 });
 client.login('NjkxODU3MDE5MzE3MjU2MjEy.XnsVrg.22_khA-pH-pY0IYklH2Rc29vgCM');
