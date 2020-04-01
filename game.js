@@ -82,7 +82,7 @@ Game.prototype.newGame = function() {
 
 Game.prototype.loop = function() {
 	this.day += 1;
-	return new Promise(resolve => {
+	return new Promise(async resolve => {
 		await this.night();
 
 		this.morning();
