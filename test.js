@@ -12,8 +12,8 @@ class Test {
         r();
         return;
       }
-      await this.process();
-      await this.process2();
+      await this.process().catch((e) => console.error(e));
+      await this.process2().catch((e) => console.error(e));
       r(this.loop());
     })
   }
