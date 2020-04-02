@@ -84,23 +84,18 @@ Game.prototype.loop = function() {
 	this.day += 1;
 	return new Promise(async resolve => {
 		await this.night();
-
 		this.morning();
 		this.story += `\n*Trời sáng*`;
 		console.log(`\n*Trời sáng*`);
-
 		if (this.checkEnd()) {
 			resolve();
 			return;
 		}
-
 		await this.dayF();
-
 		if (this.checkEnd()) {
 			resolve();
 			return;
 		}
-
 		resolve(this.loop());
 	})
 }
