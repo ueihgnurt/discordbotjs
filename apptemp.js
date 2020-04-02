@@ -1,14 +1,14 @@
 const Discord = require('discord.js');
-const client = new Discord.Client({
-  token:'NjkxODU3MDE5MzE3MjU2MjEy.XoX1yQ.k5tbuwh3UmqF36-_gUKuIT5BI5M',
-  autorun:true
-});
+const client = new Discord.Client();
 const Helper = require('./helper');
 var fs = require('fs');
 const Constants = require('./constants');
 const Game = require('./game');
 const Roles = require('./roles');
-const Doge = client;
+const Doge = new Discord.Client();
+Doge.login('NjkxODU3MDE5MzE3MjU2MjEy.XoX2wg.t7kAIkq_Q0q6UdI16HHoAC_YrXM');
+client.login('NjkxODU3MDE5MzE3MjU2MjEy.XoX2wg.t7kAIkq_Q0q6UdI16HHoAC_YrXM');
+console.log(Doge.token)
 Doge.on('message',ms => {
     // let rawdata = fs.readFileSync('MemeMaterials.json')
     // let meme = JSON.parse(rawdata);
