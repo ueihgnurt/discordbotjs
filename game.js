@@ -83,7 +83,7 @@ Game.prototype.newGame = function() {
 Game.prototype.loop = function() {
 	this.day += 1;
 	return new Promise(async resolve => {
-		await this.night();
+		await this.night().catch((e) => console.error(e))
 		this.morning();
 		this.story += `\n*Trời sáng*`;
 		console.log(`\n*Trời sáng*`);
@@ -91,7 +91,7 @@ Game.prototype.loop = function() {
 			resolve();
 			return;
 		}
-		await this.dayF();
+		await this.dayF().catch((e) => console.error(e));
 		if (this.checkEnd()) {
 			resolve();
 			return;
@@ -160,11 +160,11 @@ Game.prototype.night = function() {
 			this.guardianProcess(),
 			this.hunterProcess(),
 			this.wolvesProcess(),
-		]);
+		]).catch((e) => console.error(e));
 		console.log(`this.seerProcess(),this.guardianProcess(),this.hunterProcess()`);
 
 		// Call bla bla bla
-		await this.witchProcess();
+		await this.witchProcess().catch((e) => console.error(e));
 		console.log(`await this.witchProcess();`)
 
 		resolve();
@@ -261,7 +261,7 @@ Game.prototype.wolvesProcess = function() {
 
 		await new Promise(endTimer => {
 			setTimeout(endTimer, 30000);
-		});
+		}).catch((e) => console.error(e));
 
 		Promise.all(
 			wereWolves.map(wereWolf => {
@@ -300,7 +300,7 @@ Game.prototype.witchProcess = function() {
 				if (!witchPlayer.roleState.didSave) {
 					await new Promise(async resolveSave => {
 						witchPlayer.sendDM(`Đêm qua ${this.wolvesTarget.name} bị căn, bạn có muốn cứu không?\n0. Có\n1. Không`);
-						const selectedIndex = await witchPlayer.select(['Có', 'Không']);
+						const selectedIndex = await witchPlayer.select(['Có', 'Không']).catch((e) => console.error(e));
 	
 						// Witch decide to save
 						if (selectedIndex === 0) {
@@ -313,7 +313,7 @@ Game.prototype.witchProcess = function() {
 							console.log(`\n${witchPlayer.getNameAndRole()} **không** cứu ${this.wolvesTarget.getNameAndRole()}`);
 						}
 						resolveSave();
-					});
+					}).catch((e) => console.error(e));
 				}
 
 				// If witch still have kill ab
@@ -322,7 +322,7 @@ Game.prototype.witchProcess = function() {
 					targets.push({ name: 'Không giết ai' });
 					const targetsText = Helper.textFromOptions(targets, t => t.name);
 					witchPlayer.sendDM(`Bạn có muốn giết ai không?${targetsText}`);
-					const selected = await witchPlayer.select(targets, 30, targets.length - 1)
+					const selected = await witchPlayer.select(targets, 30, targets.length - 1).catch((e) => console.error(e))
 
 					// If witch decide to kill
 					if (selected !== targets.length - 1) {
@@ -361,7 +361,7 @@ Game.prototype.dayF = function() {
 					}
 					return selected;
 				});
-			}));
+			})).catch((e) => console.error(e));
 			const mostSelected = Helper.most(selectedIndexes);
 
 			if (mostSelected === null || mostSelected === selects.length - 1) {
@@ -380,7 +380,7 @@ Game.prototype.dayF = function() {
 
 			// vote with 0 = no, 1 = yes
 			this.notifyAll(`${target.name} bị chọn làm mục tiêu bị treo cỗ\n0. Không treo cổ\n1. gietchetmeno`);
-			const votes = await Promise.all(targets.filter(t => t !== target).map(voter => voter.select([0, 1], 30, 0)));
+			const votes = await Promise.all(targets.filter(t => t !== target).map(voter => voter.select([0, 1], 30, 0))).catch((e) => console.error(e));
 			const mostVote = Helper.most(votes);
 			
 
