@@ -159,7 +159,7 @@ Game.prototype.night = function() {
 		console.log(`await this.witchProcess();`)
 
 		resolve();
-	});
+	}).then().catch(err =>{console.log(err)});
 }
 
 Game.prototype.seerProcess = function() {
@@ -179,7 +179,7 @@ Game.prototype.seerProcess = function() {
 		} else {
 			r();
 		}
-	})
+	}).then().catch(err =>{console.log(err)})
 }
 
 Game.prototype.guardianProcess = function() {
@@ -210,7 +210,7 @@ Game.prototype.guardianProcess = function() {
 		} else {
 			r();
 		}
-	});
+	}).then().catch(err =>{console.log(err)});
 }
 
 Game.prototype.hunterProcess = function() {
@@ -241,7 +241,7 @@ Game.prototype.hunterProcess = function() {
 		} else {
 			r();
 		}
-	});
+	}).then().catch(err =>{console.log(err)});
 }
 
 Game.prototype.wolvesProcess = function() {
@@ -277,7 +277,7 @@ Game.prototype.wolvesProcess = function() {
 
 			this.phase = Constants.gameStages.nightAfterWolves;
 			r();
-		})
+		}).catch(err => {console.log(err)})
 	})
 }
 
@@ -326,7 +326,7 @@ Game.prototype.witchProcess = function() {
 			}
 		}
 		r();
-	})
+	}).then().catch(err =>{console.log(err)})
 }
 
 Game.prototype.dayF = function() {
@@ -391,7 +391,7 @@ Game.prototype.dayF = function() {
 			console.log(`${target.getNameAndRole()} không bị treo cổ`);
 			r();
 		}, 30000);
-	})
+	}).then().catch(err =>{console.log(err)})
 }
 
 Game.prototype.morning = function() {
