@@ -6,8 +6,8 @@ const Constants = require('./constants');
 const Game = require('./game1');
 const Roles = require('./roles');
 const Doge = new Discord.Client();
-Doge.login('NjkxODU3MDE5MzE3MjU2MjEy.XoYJFQ.J-x0F88Q4KW-VD8GbKud1P4PKL8');
-client.login('NjkxODU3MDE5MzE3MjU2MjEy.XoYJFQ.J-x0F88Q4KW-VD8GbKud1P4PKL8');
+Doge.login('NjkxODU3MDE5MzE3MjU2MjEy.XpE-sg.-OMvtaXERYjnHwuPAa8D6i60SeI');
+client.login('NjkxODU3MDE5MzE3MjU2MjEy.XpE-sg.-OMvtaXERYjnHwuPAa8D6i60SeI');
 // Doge.on('message',ms => {
 //     // let rawdata = fs.readFileSync('MemeMaterials.json')
 //     // let meme = JSON.parse(rawdata);
