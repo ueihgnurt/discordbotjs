@@ -1,31 +1,31 @@
-const Discord = require('discord.js');
+﻿const Discord = require('discord.js');
 const client = new Discord.Client();
 const Helper = require('./helper');
 var fs = require('fs');
 const Constants = require('./constants');
-const Game = require('./game');
+const Game = require('./game1');
 const Roles = require('./roles');
 const Doge = new Discord.Client();
-Doge.login('NjkxODU3MDE5MzE3MjU2MjEy.XoX8oQ.cATdAxgCmFIUdRgn0HuhuqDxF_8');
-client.login('NjkxODU3MDE5MzE3MjU2MjEy.XoX8oQ.cATdAxgCmFIUdRgn0HuhuqDxF_8');
-Doge.on('message',ms => {
-    // let rawdata = fs.readFileSync('MemeMaterials.json')
-    // let meme = JSON.parse(rawdata);
-    // console.log(meme)
-    if(ms.content.toLowerCase().startsWith("vàng") && (ms.content.endsWith("khẩu súng") || ms.content.endsWith("AK")))
-    {
-        ms.channel.send("Hàng hụi đây,bắng chết nó đi bạn <:AK47:692359318292660255>");
-    }
-    else if(ms.content.toLowerCase() === 'rish là gì?'){
-        ms.channel.send({file: "https://cdn.discordapp.com/attachments/368071236325998592/623146226262474775/image0.jpg"});
-    }
-    else if(ms.content.toLowerCase() === 'rét từng nói'){
-        ms.channel.send({file: "https://media.discordapp.net/attachments/523690044419080207/694797663484248104/image0.png"});
-    }
-    else if(ms.content.toLowerCase().includes('làm gì giờ')){
-        ms.channel.send({file: "https://media.discordapp.net/attachments/523690044419080207/694796999324729364/Screenshot_20200324-1729472.png"});
-    }
-})
+Doge.login('NjkxODU3MDE5MzE3MjU2MjEy.XoYJFQ.J-x0F88Q4KW-VD8GbKud1P4PKL8');
+client.login('NjkxODU3MDE5MzE3MjU2MjEy.XoYJFQ.J-x0F88Q4KW-VD8GbKud1P4PKL8');
+// Doge.on('message',ms => {
+//     // let rawdata = fs.readFileSync('MemeMaterials.json')
+//     // let meme = JSON.parse(rawdata);
+//     // console.log(meme)
+//     if(ms.content.toLowerCase().startsWith("vàng") && (ms.content.endsWith("khẩu súng") || ms.content.endsWith("AK")))
+//     {
+//         ms.channel.send("Hàng hụi đây,bắng chết nó đi bạn <:AK47:692359318292660255>");
+//     }
+//     else if(ms.content.toLowerCase() === 'rish là gì?'){
+//         ms.channel.send({file: "https://cdn.discordapp.com/attachments/368071236325998592/623146226262474775/image0.jpg"});
+//     }
+//     else if(ms.content.toLowerCase() === 'rét từng nói'){
+//         ms.channel.send({file: "https://media.discordapp.net/attachments/523690044419080207/694797663484248104/image0.png"});
+//     }
+//     else if(ms.content.toLowerCase().includes('làm gì giờ')){
+//         ms.channel.send({file: "https://media.discordapp.net/attachments/523690044419080207/694796999324729364/Screenshot_20200324-1729472.png"});
+//     }
+// })
 client.on('message', ms => {
     const dc = ms.author;
     const game = Helper.findGameIfExist(dc);
@@ -55,7 +55,7 @@ function ownerCommands(message, discordUser, game) {
         const filter = (reaction, user) => {
           return ['dogehaha'].includes(reaction.emoji.name) && user.id === message.author.id;
         };
-        message.awaitReactions(filter,{ max: 1, time: 6000, errors: ['time'] })
+        message.awaitReactions(filter,{ max: 1, time: 60000, errors: ['time'] })
         .then(collected => {
             reactors.push(collected.first());
           }).catch(() => {

@@ -3,8 +3,8 @@ const Roles = require('./roles');
 const Constants = require('./constants');
 const Player = require('./player');
 
-function Game(ms, ownerName){
-    this.messsage = ms;
+function Game(ms, ownerName) {
+	this.messsage = ms;
 	this.channel = ms.channel;
 	this.owner = ms.author;
 	Helper.addToGame(ms.author, this);
@@ -19,10 +19,12 @@ function Game(ms, ownerName){
 	this.lastNightDies = [];
 	this.phase = Constants.gameStages.waiting;
 }
+
 Game.prototype.notifyAll = function(text) {
 	// end mesage in channel
 	this.channel.send(text);
 }
+
 Game.prototype.getAlivePlayerList = function() {
 	let list = [];
 	this.players.forEach((p, i) => {
@@ -32,33 +34,39 @@ Game.prototype.getAlivePlayerList = function() {
 	});
 	return list;
 }
+
 Game.prototype.newGame = function() {
-    this.players.forEach(p => {
+
+	this.players.forEach(p => {
 		if (Helper.findGameIfExist(p) !== this || this.playerFromDC(p.discord) !== p) {
 			console.log('Fuckkkkkkkkkkkkkkkkkkkkkkkkkkkkk!');
 		} else {
 			console.log(`${p.name} - OK!`);
 		}
-    });
-    
-    this.day = 0;
+	});
+
+	this.day = 0;
 	this.story = "";
 	this.stories = [];
 	this.guardianTarget = null;
 	this.wolvesTarget = null;
 	this.witchTarget = null;
 	this.lastNightDies = [];
-    this.phase = Constants.gameStages.waiting;
-    // Shuffle
-    const tempPlayers = [...this.players];
+	this.phase = Constants.gameStages.waiting;
+
+	// Shuffle
+	const tempPlayers = [...this.players];
 	Helper.shuffle(tempPlayers);
+
 	tempPlayers.forEach((player, index) => {
 		const role = this.roles[index];
 		player.role = role;
 		player.roleState = role.getDefaultState();
 		player.sendDM(`Bạn là ${role.name}\n${role.inf}`);
-    })
-    let notiText = `Trò chơi bắt đầu\nDanh sách người chơi:`;
+	})
+
+	//
+	let notiText = `Trò chơi bắt đầu\nDanh sách người chơi:`;
 	let rolesText = '\nDanh sách nhân vật:';
 	this.roles.forEach((role, index) => {
 		notiText += `\n${this.players[index].name}`;
@@ -70,6 +78,26 @@ Game.prototype.newGame = function() {
 		.then(() => {
 			this.onEnd();
 		});
+}
+
+Game.prototype.loop = function() {
+	this.day += 1;
+	return new Promise(async resolve => {
+		await this.night().catch((e) => console.error(e))
+		this.morning();
+		this.story += `\n*Trời sáng*`;
+		console.log(`\n*Trời sáng*`);
+		if (this.checkEnd()) {
+			resolve();
+			return;
+		}
+		await this.dayF().catch((e) => console.error(e));
+		if (this.checkEnd()) {
+			resolve();
+			return;
+		}
+		resolve(this.loop());
+	})
 }
 
 Game.prototype.checkEnd = function() {
@@ -103,25 +131,6 @@ Game.prototype.checkEnd = function() {
 	return false;
 }
 
-Game.prototype.loop = function() {
-	this.day += 1;
-	return new Promise(async resolve => {
-		await this.night().catch((e) => console.error(e))
-		this.morning();
-		this.story += `\n*Trời sáng*`;
-		console.log(`\n*Trời sáng*`);
-		if (this.checkEnd()) {
-			resolve();
-			return;
-		}
-		await this.dayF().catch((e) => console.error(e));
-		if (this.checkEnd()) {
-			resolve();
-			return;
-		}
-		resolve(this.loop());
-    }).then().catch(err =>{console.log(err)})
-}
 Game.prototype.night = function() {
 	return new Promise(async resolve => {
 		this.story += `\n\nĐêm thứ ${this.day}`;
@@ -352,7 +361,7 @@ Game.prototype.dayF = function() {
 					}
 					return selected;
 				});
-			})).then().catch((e) => console.error(e));
+			})).catch((e) => console.error(e));
 			const mostSelected = Helper.most(selectedIndexes);
 
 			if (mostSelected === null || mostSelected === selects.length - 1) {
